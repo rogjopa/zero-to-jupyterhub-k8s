@@ -190,7 +190,8 @@ proxy:
   service:
     type: LoadBalancer
     labels: {}
-    annotations: {}
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
     nodePorts:
       http:
       https:
