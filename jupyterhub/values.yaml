@@ -189,16 +189,13 @@ proxy:
   # service relates to the proxy-public service
   service:
     type: LoadBalancer
-    labels: {}
     annotations:
       service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
-    nodePorts:
-      http:
-      https:
-    disableHttpPort: false
-    extraPorts: []
-    loadBalancerIP:
-    loadBalancerSourceRanges: []
+      service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"  # Se precisar de acesso público
+      service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"  # Usar IPs de pods em vez de instâncias EC2
+  externalTrafficPolicy: Local  # Mantém o IP original do cliente
+  loadBalancerSourceRanges: []  # Restringe acessos, se necessário
+
   # chp relates to the proxy pod, which is responsible for routing traffic based
   # on dynamic configuration sent from JupyterHub to CHP's REST API.
   chp:
